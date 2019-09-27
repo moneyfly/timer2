@@ -103,7 +103,7 @@ module.exports = function(grunt) {
 
     // Default task(s).
     //grunt.registerTask('dev', ['jshint', 'qunit', 'clean', 'concat:dist', 'uglify', 'sass']);
-    grunt.registerTask('clean', ['clean']);
-    grunt.registerTask('dev', ['jshint', 'clean', 'concat:dist', 'uglify', 'sass']);
+    grunt.registerTask('clear', ['clean']);
+    grunt.registerTask('dev', ['jshint', 'clean','concat:dist', 'uglify', 'sass']);
     grunt.registerTask('prod', ['clean', 'concat:dist', 'uglify', 'sass']);
 };
