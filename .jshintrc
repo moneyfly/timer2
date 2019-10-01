@@ -12,6 +12,7 @@
   "eqnull": true,
   "node": true,
   "devel": true,
+  "browser" : true,
   "predef": [
     "jQuery",
     "QUnit",

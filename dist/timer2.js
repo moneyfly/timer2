@@ -9,16 +9,64 @@
         },options );
         
         return this.each(function() {
+            var $this = $(this);
+            var value;
             // Do something awesome to each selected element.
             if(this.tagName === "DIV" || this.tagName === "SPAN"){
-                var value = this.innerText.trim();
+                value = this.innerText.trim();
                 if(! /^[0-9]+$/.test(value)){
                     return ;
                 }
                 this.innerText = $.fn.timer2.format_time(parseInt(value));
             } 
             if(this.tagName === "INPUT" && this.getAttribute('type')==='text'){
-                console.log("input text");
+                //Create container
+                value = $this.val();
+                if(! /^[0-9]+$/.test(value)){
+                    return ;
+                }
+                var dhms = $.fn.timer2.get_dhms(value);
+                var content = '<input type="text" title="day" class="timer2-inside day" value="'+dhms[0]+'">' + "days" +
+                '<input type="text" title="hour" class="timer2-inside hour" value="'+dhms[1]+'">' + ':'+
+                '<input type="text" title="minute" class="timer2-inside minute" value="'+dhms[2]+'">' + ':'+
+                '<input type="text" title="second" class="timer2-inside second" value="'+dhms[3]+'">';
+                var $container = $(document.createElement("div")).attr({"class": "timer2"}).html(content);
+                // Insert before
+                $this.before($container);
+                // Hide itself
+                $this.hide();
+                // enable event, find child input enable onchange
+                $container.children(".timer2-inside").bind("propertychange change click keyup input paste", function(){
+                    var $value = $(this).val();
+                    if($(this).attr("title") === "day" && ! /^[0-9]+$/.test($value)){
+                        $(this).val(0);
+                    }
+                    if($(this).attr("title") === "hour"){
+                        if($value > 23){
+                            $(this).val(23);    
+                        } else if ( ! /^[0-9]+$/.test($value)){
+                            $(this).val(0);
+                        }else {
+                            $(this).val(parseInt($value ));
+                        }
+                    }
+                    if(($(this).attr("title") === "minute" || $(this).attr("title") === "second") ){
+                        if($value > 59){
+                            $(this).val(59);    
+                        } else if ( ! /^[0-9]+$/.test($value)){
+                            $(this).val(0);
+                        }else {
+                            $(this).val(parseInt($value ));
+                        }
+                    }
+                    // Get day hour minut second
+                    var dhms = {day:0,hour:0,minute:0,second:0};
+                    $container.children(".timer2-inside").each(function(){
+                        dhms[$(this).attr("title")] = $(this).val();
+                    });
+                    $this.val($.fn.timer2.get_seconds(dhms.day,dhms.hour,dhms.minute,dhms.second));
+                });
+                
             } 
         });
     };
@@ -27,12 +75,21 @@
         var pad_zero = function(num) {
             return num < 10 && "0" + num || num;
         };
-        var second = pad_zero(seconds - Math.floor(seconds/60)*60);
-        var minute = pad_zero(Math.floor((seconds - Math.floor(seconds/3600)*3600)/60));
-        var hour = pad_zero(Math.floor((seconds - Math.floor(seconds/86400)*86400)/3600));
+        var dhms = $.fn.timer2.get_dhms(seconds);
+        var day = dhms[0] > 1 && dhms[0]+"days " || (dhms[0] > 0 && dhms[0]+"day " || ""); 
+        return day+pad_zero(dhms[1])+":"+pad_zero(dhms[2])+":"+pad_zero(dhms[3]); 
+    };
+    
+    $.fn.timer2.get_dhms = function(seconds) {
+        var second = seconds - Math.floor(seconds/60)*60;
+        var minute = Math.floor((seconds - Math.floor(seconds/3600)*3600)/60);
+        var hour = Math.floor((seconds - Math.floor(seconds/86400)*86400)/3600);
         var day = Math.floor(seconds/86400);
-        day  = day > 1 && day+"days " || (day > 0 && day+"day " || ""); 
-        return day+hour+":"+minute+":"+second; 
+        return [day,hour,minute,second]; 
+    };
+    
+    $.fn.timer2.get_seconds = function(day,hour,minute,second) {
+        return Math.floor(day*86400+3600*hour+60*minute+second*1); 
     };
 
 }(jQuery));
