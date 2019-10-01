@@ -7,14 +7,63 @@
   <script src="../libs/jquery-loader.js"></script>
 
   <!-- Load local lib and tests. -->
-  <script src="../src/jquery.test.js"></script>
-  <script src="../dist/timer2.js"></script>
+  <script src="../src/js/timer2.js"></script>
   <!-- Removing access to jQuery and $. But it'll still be available as _$, if
        you REALLY want to mess around with jQuery in the console. REMEMBER WE
        ARE TESTING A PLUGIN HERE, THIS HELPS ENSURE BEST PRACTICES. REALLY. -->
-  <script>window._$ = jQuery.noConflict(true);</script>
+  <style>
+  .container {
+    margin: auto 0;
+    width:100%;
+  }
+  label {
+    display:block;
+    margin:10px 0 3px 0;
+  }
+  span {
+    display:block;
+  }
+  table  {
+  border-collapse: collapse;
+    border-spacing: 0;
+    width: 50%;
+  }
+  table tr td {
+    border:1px solid #cccccc;
+    padding:10px;
+    }
+  </style>
+  
 </head>
 <body>
-  <div id="example"></div>
+    <script>
+jQuery(document).ready(function() {
+    jQuery('.timer2').timer2();
+});
+    </script>
+  <div class="container">
+    <table>
+    <tr>
+    <td> </td>
+    <td>Raw</td>
+    <td>Timer2</td>
+    </tr>
+    <tr>
+    <td>Timer show in div</td>
+    <td><div class=''>86300</div></td>
+    <td><div class='timer2'>86300</div></td>
+    </tr>
+    <tr>
+    <td>Timer show in span</td>
+    <td><span class=''>86490</span></td>
+    <td><span class='timer2'>86490</span></td>
+    </tr>
+    <tr>
+    <td>Timer Input</td>
+    <td><input type="text" name="FirstName" class="" value="86400"></td>
+    <td><input type="text" name="FirstName" class="timer2" value="86400"></td>
+    </tr>
+    </table>
+  </div>
 </body>
 </html>

@@ -50,7 +50,7 @@ module.exports = function(grunt) {
         // static check, detect the errors and potential problems in the js code
         jshint : {
             options : {
-                jshintrc : true
+                jshintrc : true,
             },
 //            gruntfile : {
 //                options : {
