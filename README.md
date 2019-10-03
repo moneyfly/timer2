@@ -11,7 +11,8 @@ Browser compatibility
 
 Usage
 -----
-test
+See examples
+![example](examples/example.jpg)
 
 Documentation
 -------------
