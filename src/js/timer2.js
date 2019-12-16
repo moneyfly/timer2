@@ -31,10 +31,10 @@
                     return ;
                 }
                 var dhms = $.fn.timer2.get_dhms(value);
-                var content = '<input type="text" title="day" class="timer2-inside day" value="'+dhms[0]+'">' + "days" +
-                '<input type="text" title="hour" class="timer2-inside hour" value="'+dhms[1]+'">' + ':'+
-                '<input type="text" title="minute" class="timer2-inside minute" value="'+dhms[2]+'">' + ':'+
-                '<input type="text" title="second" class="timer2-inside second" value="'+dhms[3]+'">';
+                var content = '<input type="text" title="day" class="timer2-inside input-day" value="'+dhms[0]+'">' + "days" +
+                '<input type="text" title="hour" class="timer2-inside input-hour" value="'+dhms[1]+'">' + ':'+
+                '<input type="text" title="minute" class="timer2-inside input-minute" value="'+dhms[2]+'">' + ':'+
+                '<input type="text" title="second" class="timer2-inside input-second" value="'+dhms[3]+'">';
                 var $container = $(document.createElement("div")).attr({"class": "timer2"}).html(content);
                 // Insert before
                 $this.before($container);

@@ -16,4 +16,4 @@ See examples
 
 Copyright and license
 ---------------------
-The license is available within the repository in the [LICENSE][license] file.
+The license is available within the repository in the [LICENSE-MIT](LICENSE-MIT) file.
