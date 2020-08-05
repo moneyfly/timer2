@@ -9,12 +9,18 @@
 ( function($) {    
     // Collection method.
     $.fn.timer2 = function(options) {
+        var $this = $(this);
         options = $.extend({
-            
+            day:true,
+            hour:true,
+            munute:true,
+            second:true
         },options );
         
         return this.each(function() {
             var $this = $(this);
+            // clean exist
+            $this.siblings('.timer2-box').remove();
             var value;
             // Do something awesome to each selected element.
             if(this.tagName === "DIV" || this.tagName === "SPAN"){
@@ -31,11 +37,23 @@
                     return ;
                 }
                 var dhms = $.fn.timer2.get_dhms(value);
-                var content = '<input type="text" title="day" class="timer2-inside input-day" value="'+dhms[0]+'">' + "days" +
-                '<input type="text" title="hour" class="timer2-inside input-hour" value="'+dhms[1]+'">' + ':'+
-                '<input type="text" title="minute" class="timer2-inside input-minute" value="'+dhms[2]+'">' + ':'+
-                '<input type="text" title="second" class="timer2-inside input-second" value="'+dhms[3]+'">';
-                var $container = $(document.createElement("div")).attr({"class": "timer2"}).html(content);
+                var day_ct = options.day && '<input type="text" title="day" class="timer2-inside input-day" value="'+dhms[0]+'">' + "days" || "";
+                var hms = [];
+                var hms_str = [];
+                if(options.hour){
+                    hms.push('<input type="text" title="hour" class="timer2-inside input-hour" value="'+dhms[1]+'">');
+                    hms_str.push('hh');
+                }
+                if(options.munute){
+                    hms.push('<input type="text" title="minute" class="timer2-inside input-minute" value="'+dhms[2]+'">');
+                    hms_str.push('mm');
+                }
+                if(options.second){
+                    hms.push('<input type="text" title="second" class="timer2-inside input-second" value="'+dhms[3]+'">');
+                    hms_str.push('ss');
+                }
+                var content = day_ct+hms.join(":")+"("+hms_str.join(":")+")";
+                var $container = $(document.createElement("div")).attr({"class": "timer2-box"}).html(content);
                 // Insert before
                 $this.before($container);
                 // Hide itself
@@ -96,5 +114,4 @@
     $.fn.timer2.get_seconds = function(day,hour,minute,second) {
         return Math.floor(day*86400+3600*hour+60*minute+second*1); 
     };
-
 }(jQuery));

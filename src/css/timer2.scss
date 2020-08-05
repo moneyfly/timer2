@@ -1,10 +1,14 @@
-
-.timer2-inside {
-    display: inline;
-    width: 20px;
-    margin: 0 2px;
+.timer2-box {
+    display:inline;
 }
 
-.input-day {
-    width: 45px;
-}   
+.timer2-box .timer2-inside {
+    display: inline;
+    width: 36px;
+    margin: 0 2px;
+    text-align:right;
+}
+
+.timer2-box .input-day {
+    width:68px
+}
