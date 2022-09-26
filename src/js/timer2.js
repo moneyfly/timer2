@@ -52,7 +52,8 @@
                     hms.push('<input type="text" title="second" class="timer2-inside input-second" value="'+dhms[3]+'">');
                     hms_str.push('ss');
                 }
-                var content = day_ct+hms.join(":")+"("+hms_str.join(":")+")";
+                hms_str = hms_str.join(":")
+                var content = day_ct+hms.join(":")+(hms_str!="" && "("+hms_str+")" || "") ;
                 var $container = $(document.createElement("div")).attr({"class": "timer2-box"}).html(content);
                 // Insert before
                 $this.before($container);
